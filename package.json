@@ -13,7 +13,8 @@
     "csv-parser": "^3.0.0"
   },
   "devDependencies": {
-    "nodemon": "^3.0.1"
+    "nodemon": "^3.0.1",
+    "browser-sync": "^2.29.3"
   },
   "keywords": ["traffic", "qa", "dashboard", "config-management"],
   "author": "",

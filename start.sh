@@ -38,10 +38,10 @@ cleanup() {
 # Set up signal handlers
 trap cleanup SIGINT SIGTERM
 
-# Check if nodemon is installed
-if ! command -v nodemon &> /dev/null; then
-    echo -e "${YELLOW}📦 Installing nodemon...${NC}"
-    npm install -g nodemon
+# Install dependencies if needed
+if [ ! -d "node_modules" ]; then
+    echo -e "${YELLOW}📦 Installing dependencies...${NC}"
+    npm install
 fi
 
 echo -e "${BLUE}🚀 Starting Traffic QA Dashboard v2 Development Environment${NC}"
@@ -49,15 +49,9 @@ echo -e "${BLUE}   Port: $PORT${NC}"
 echo -e "${BLUE}   Auto-reload: Enabled${NC}"
 echo -e "${BLUE}   Browser refresh: Enabled${NC}"
 
-# Install dependencies if needed
-if [ ! -d "node_modules" ]; then
-    echo -e "${YELLOW}📦 Installing dependencies...${NC}"
-    npm install
-fi
-
 # Start the server with nodemon
 echo -e "${GREEN}🔄 Starting server with auto-reload...${NC}"
-nodemon server.js --watch ./ --ext js,json,html,css --ignore node_modules/ --ignore data/ >> "$LOG_FILE" 2>&1 &
+npx nodemon server.js --watch ./ --ext js,json,html,css --ignore node_modules/ --ignore data/ >> "$LOG_FILE" 2>&1 &
 SERVER_PID=$!
 echo $SERVER_PID >> "$PID_FILE"
 
@@ -86,14 +80,8 @@ fi
 # Start file watcher for browser refresh
 echo -e "${GREEN}👁️  Starting file watcher for browser refresh...${NC}"
 (
-    # Install browser-sync if not available
-    if ! command -v browser-sync &> /dev/null; then
-        echo -e "${YELLOW}📦 Installing browser-sync...${NC}"
-        npm install -g browser-sync
-    fi
-    
     # Start browser-sync proxy
-    browser-sync start \
+    npx browser-sync start \
         --proxy "localhost:$PORT" \
         --files "public/**/*,modules/**/*" \
         --no-open \
