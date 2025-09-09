@@ -32,6 +32,10 @@ class Server {
     this.app.get('/', (req, res) => {
       res.sendFile(path.join(__dirname, 'public', 'index.html'));
     });
+
+    this.app.get('/config', (req, res) => {
+      res.sendFile(path.join(__dirname, 'public', 'pages', 'config-management.html'));
+    });
   }
 
   async start() {

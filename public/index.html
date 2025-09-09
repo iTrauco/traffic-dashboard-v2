@@ -6,6 +6,7 @@
   <title>Traffic QA Dashboard v2</title>
   <link rel="stylesheet" href="/css/base.css">
   <link rel="stylesheet" href="/css/components.css">
+  <link rel="stylesheet" href="/css/modules/config.css">
 </head>
 <body>
   <header id="header"></header>
@@ -50,11 +51,16 @@
 
       async loadModule(name, containerId) {
         try {
-          const response = await fetch(`/js/modules/${name}/${name}.js`);
-          if (!response.ok) throw new Error(`Module ${name} not found`);
+          // Load the module script dynamically
+          const script = document.createElement('script');
+          script.src = `/js/modules/${name}/${name}.js`;
+          document.head.appendChild(script);
           
-          const moduleCode = await response.text();
-          eval(moduleCode);
+          // Wait for script to load
+          await new Promise((resolve, reject) => {
+            script.onload = resolve;
+            script.onerror = reject;
+          });
           
           const moduleClass = window[name.charAt(0).toUpperCase() + name.slice(1)];
           if (moduleClass) {

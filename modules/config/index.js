@@ -47,8 +47,40 @@ class ConfigModule {
     // Generate config from selected counties
     router.post('/generate', async (req, res) => {
       try {
-        const config = await this.service.generateConfig();
+        const { metadata } = req.body;
+        const result = await this.service.generateConfig(metadata);
+        res.json({ success: true, ...result });
+      } catch (error) {
+        res.status(500).json({ success: false, error: error.message });
+      }
+    });
+
+    // Get config history
+    router.get('/history', async (req, res) => {
+      try {
+        const history = await this.service.getConfigHistory();
+        res.json({ success: true, history });
+      } catch (error) {
+        res.status(500).json({ success: false, error: error.message });
+      }
+    });
+
+    // Get specific config by filename
+    router.get('/config/:fileName', async (req, res) => {
+      try {
+        const { fileName } = req.params;
+        const config = await this.service.loadConfigByFileName(fileName);
         res.json({ success: true, config });
+      } catch (error) {
+        res.status(500).json({ success: false, error: error.message });
+      }
+    });
+
+    // Get active config
+    router.get('/active', async (req, res) => {
+      try {
+        const activeConfig = await this.service.getActiveConfig();
+        res.json({ success: true, activeConfig });
       } catch (error) {
         res.status(500).json({ success: false, error: error.message });
       }

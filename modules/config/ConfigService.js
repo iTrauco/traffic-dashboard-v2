@@ -9,6 +9,8 @@ class ConfigService {
     this.csvPath = process.env.CAMERAS_CSV_PATH || '/home/trauco/.traffic-provenance/configs/cameras.csv';
     this.configPath = process.env.CONFIG_OUTPUT_PATH || './data/camera_config.json';
     this.statePath = process.env.STATE_PATH || './data/county_state.json';
+    this.configsDir = './data/configs';
+    this.activeConfigPath = './data/active_config.json';
     
     this.ensureDataDirectory();
   }
@@ -16,6 +18,7 @@ class ConfigService {
   async ensureDataDirectory() {
     try {
       await fs.mkdir('./data', { recursive: true });
+      await fs.mkdir(this.configsDir, { recursive: true });
     } catch (error) {
       // Directory exists, ignore
     }
@@ -92,9 +95,101 @@ class ConfigService {
     };
   }
 
-  async generateConfig() {
+  generateConfigFileName(name, timestamp = null) {
+    const date = timestamp ? new Date(timestamp) : new Date();
+    const dateStr = date.toISOString().split('T')[0];
+    const timeStr = date.toTimeString().split(' ')[0].replace(/:/g, '');
+    const safeName = name.toLowerCase().replace(/[^a-z0-9-]/g, '-');
+    return `${safeName}_${dateStr}_${timeStr}.json`;
+  }
+
+  async saveConfigToHistory(configData, metadata) {
+    const fileName = this.generateConfigFileName(metadata.name);
+    const filePath = path.join(this.configsDir, fileName);
+    
+    const configWithMeta = {
+      ...configData,
+      metadata: {
+        ...metadata,
+        created_at: new Date().toISOString(),
+        file_name: fileName,
+        version: '1.0'
+      }
+    };
+
+    await fs.writeFile(filePath, JSON.stringify(configWithMeta, null, 2));
+    
+    // Update active config reference
+    await fs.writeFile(this.activeConfigPath, JSON.stringify({
+      active_config: fileName,
+      last_updated: new Date().toISOString(),
+      metadata
+    }, null, 2));
+
+    return { fileName, filePath, config: configWithMeta };
+  }
+
+  async getConfigHistory() {
+    try {
+      const files = await fs.readdir(this.configsDir);
+      const configFiles = files.filter(f => f.endsWith('.json'));
+      
+      const configs = await Promise.all(
+        configFiles.map(async (fileName) => {
+          try {
+            const filePath = path.join(this.configsDir, fileName);
+            const stats = await fs.stat(filePath);
+            const content = await fs.readFile(filePath, 'utf8');
+            const config = JSON.parse(content);
+            
+            return {
+              fileName,
+              filePath,
+              size: stats.size,
+              created: stats.birthtime,
+              modified: stats.mtime,
+              metadata: config.metadata || {},
+              cameraCount: config.cameras?.length || 0,
+              counties: config.selected_counties || []
+            };
+          } catch (error) {
+            console.error(`Error reading config file ${fileName}:`, error);
+            return null;
+          }
+        })
+      );
+
+      return configs
+        .filter(c => c !== null)
+        .sort((a, b) => new Date(b.created) - new Date(a.created));
+    } catch (error) {
+      console.error('Error loading config history:', error);
+      return [];
+    }
+  }
+
+  async getActiveConfig() {
+    try {
+      const data = await fs.readFile(this.activeConfigPath, 'utf8');
+      return JSON.parse(data);
+    } catch (error) {
+      return null;
+    }
+  }
+
+  async loadConfigByFileName(fileName) {
+    try {
+      const filePath = path.join(this.configsDir, fileName);
+      const content = await fs.readFile(filePath, 'utf8');
+      return JSON.parse(content);
+    } catch (error) {
+      throw new Error(`Failed to load config: ${fileName}`);
+    }
+  }
+
+  async generateConfig(metadata = {}) {
     const state = await this.readState();
-    const config = await this.readConfig();
+    const baseConfig = await this.readConfig();
     
     return new Promise((resolve, reject) => {
       const cameras = [];
@@ -119,15 +214,21 @@ class ConfigService {
         .on('end', async () => {
           try {
             const newConfig = {
-              ...config,
               cameras,
+              recording: baseConfig.recording || { duration: 1800, format: 'mp4' },
               generated_at: new Date().toISOString(),
               selected_counties: state.selectedCounties,
               total_cameras: cameras.length
             };
             
-            await this.writeConfig(newConfig);
-            resolve(newConfig);
+            // Save to history if metadata provided
+            if (metadata.name) {
+              const result = await this.saveConfigToHistory(newConfig, metadata);
+              resolve(result);
+            } else {
+              await this.writeConfig(newConfig);
+              resolve({ config: newConfig });
+            }
           } catch (error) {
             reject(error);
           }

@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Config Management - Traffic QA Dashboard v2</title>
+  <link rel="stylesheet" href="/css/base.css">
+  <link rel="stylesheet" href="/css/components.css">
+  <link rel="stylesheet" href="/css/pages/config-management.css">
+</head>
+<body>
+  <header id="header"></header>
+  
+  <div class="container">
+    <div class="page-header">
+      <h1>📋 Configuration Management</h1>
+      <p>Create, manage and track camera configurations for HPC towers</p>
+    </div>
+
+    <div class="config-layout">
+      <!-- Config Builder Section -->
+      <div class="config-builder">
+        <div class="section-header">
+          <h2>🔧 Configuration Builder</h2>
+          <div class="builder-actions">
+            <button id="new-config" class="btn btn-primary">New Config</button>
+          </div>
+        </div>
+
+        <div id="config-form" class="config-form" style="display: none;">
+          <div class="form-group">
+            <label for="config-name">Configuration Name</label>
+            <input type="text" id="config-name" placeholder="e.g. fulton-dekalb-tower-1">
+          </div>
+
+          <div class="form-group">
+            <label for="config-description">Description</label>
+            <textarea id="config-description" rows="2" placeholder="Configuration purpose and details"></textarea>
+          </div>
+
+          <div class="form-group">
+            <label>Target HPC Tower</label>
+            <select id="hpc-tower">
+              <option value="">Select Tower</option>
+              <option value="tower-1">Tower 1 (Primary)</option>
+              <option value="tower-2">Tower 2 (Secondary)</option>
+              <option value="tower-3">Tower 3 (Backup)</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label>Counties</label>
+            <div class="county-actions">
+              <button type="button" id="select-all" class="btn btn-small">Select All</button>
+              <button type="button" id="clear-all" class="btn btn-small btn-secondary">Clear All</button>
+            </div>
+            <div id="county-grid" class="county-selection-grid"></div>
+          </div>
+
+          <div class="form-actions">
+            <button id="generate-config" class="btn btn-primary" disabled>Generate Configuration</button>
+            <button id="cancel-config" class="btn btn-secondary">Cancel</button>
+          </div>
+
+          <div id="generation-result" class="generation-result" style="display: none;"></div>
+        </div>
+      </div>
+
+      <!-- Config History Section -->
+      <div class="config-history">
+        <div class="section-header">
+          <h2>📚 Configuration History</h2>
+          <div class="history-actions">
+            <button id="refresh-history" class="btn btn-small">🔄 Refresh</button>
+            <select id="filter-tower" class="filter-select">
+              <option value="">All Towers</option>
+              <option value="tower-1">Tower 1</option>
+              <option value="tower-2">Tower 2</option>
+              <option value="tower-3">Tower 3</option>
+            </select>
+          </div>
+        </div>
+
+        <div id="config-list" class="config-list">
+          <div class="loading">Loading configuration history...</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="/js/components/Header.js"></script>
+  <script src="/js/pages/config-management.js"></script>
+</body>
+</html>
