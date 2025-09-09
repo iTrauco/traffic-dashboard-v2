@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Camera Dashboard - Traffic QA Dashboard v2</title>
+  <link rel="stylesheet" href="/css/base.css">
+  <link rel="stylesheet" href="/css/components.css">
+</head>
+<body>
+  <header id="header"></header>
+  
+  <div class="container">
+    <div class="page-header">
+      <h1>📊 Camera Dashboard</h1>
+      <p>Recording status monitoring and camera health tracking</p>
+    </div>
+
+    <div style="text-align: center; padding: 60px; background: white; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+      <h2 style="color: #6b7280; margin-bottom: 20px;">🚧 Feature Coming Soon</h2>
+      <p style="color: #9ca3af;">This module will show recording status for each camera based on selected configuration.</p>
+      <a href="/" class="btn btn-primary" style="margin-top: 20px;">← Back to Dashboard</a>
+    </div>
+  </div>
+
+  <script src="/js/components/Header.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      if (window.headerComponent) {
+        window.headerComponent.setActiveModule('cameras');
+      }
+    });
+  </script>
+</body>
+</html>

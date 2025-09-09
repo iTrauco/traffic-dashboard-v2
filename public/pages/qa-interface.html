@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>QA Interface - Traffic QA Dashboard v2</title>
+  <link rel="stylesheet" href="/css/base.css">
+  <link rel="stylesheet" href="/css/components.css">
+</head>
+<body>
+  <header id="header"></header>
+  
+  <div class="container">
+    <div class="page-header">
+      <h1>✅ QA Interface</h1>
+      <p>Camera quality assessment, notes and reporting system</p>
+    </div>
+
+    <div style="text-align: center; padding: 60px; background: white; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+      <h2 style="color: #6b7280; margin-bottom: 20px;">🚧 Feature Coming Soon</h2>
+      <p style="color: #9ca3af;">This module will provide QA forms, video processing, and overlay editing capabilities.</p>
+      <a href="/" class="btn btn-primary" style="margin-top: 20px;">← Back to Dashboard</a>
+    </div>
+  </div>
+
+  <script src="/js/components/Header.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      if (window.headerComponent) {
+        window.headerComponent.setActiveModule('qa');
+      }
+    });
+  </script>
+</body>
+</html>

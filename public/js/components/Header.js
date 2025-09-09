@@ -31,34 +31,32 @@ class Header {
   }
 
   attachEventListeners() {
-    // Handle navigation clicks
+    // Handle navigation clicks - let browser handle normal navigation
     const navLinks = this.container.querySelectorAll('.header-nav a');
     navLinks.forEach(link => {
       link.addEventListener('click', (e) => {
-        if (link.getAttribute('href').startsWith('/')) {
-          e.preventDefault();
-          this.navigate(link.getAttribute('href'));
-        }
+        // Let the browser handle the navigation normally
+        // Just update active state immediately for better UX
+        this.setActiveLinkByHref(link.getAttribute('href'));
       });
     });
   }
 
-  navigate(path) {
+  setActiveLinkByHref(href) {
     // Remove active class from all links
     this.container.querySelectorAll('.header-nav a').forEach(link => {
       link.classList.remove('active');
     });
 
     // Add active class to current link
-    const currentLink = this.container.querySelector(`[href="${path}"]`);
+    const currentLink = this.container.querySelector(`[href="${href}"]`);
     if (currentLink) {
       currentLink.classList.add('active');
     }
+  }
 
-    // Emit navigation event for other modules to listen
-    window.dispatchEvent(new CustomEvent('navigation', { 
-      detail: { path, module: path.slice(1) || 'dashboard' } 
-    }));
+  navigate(path) {
+    window.location.href = path;
   }
 
   setActiveModule(moduleName) {
@@ -66,8 +64,17 @@ class Header {
       link.classList.remove('active');
     });
     
-    const moduleLink = this.container.querySelector(`#${moduleName}-nav`) || 
-                      this.container.querySelector('[href="/"]');
+    let moduleLink;
+    if (moduleName === 'dashboard') {
+      moduleLink = this.container.querySelector('[href="/"]');
+    } else if (moduleName === 'config') {
+      moduleLink = this.container.querySelector('[href="/config"]');
+    } else if (moduleName === 'cameras') {
+      moduleLink = this.container.querySelector('[href="/cameras"]');
+    } else if (moduleName === 'qa') {
+      moduleLink = this.container.querySelector('[href="/qa"]');
+    }
+    
     if (moduleLink) {
       moduleLink.classList.add('active');
     }

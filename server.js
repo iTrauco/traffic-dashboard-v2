@@ -36,6 +36,14 @@ class Server {
     this.app.get('/config', (req, res) => {
       res.sendFile(path.join(__dirname, 'public', 'pages', 'config-management.html'));
     });
+
+    this.app.get('/cameras', (req, res) => {
+      res.sendFile(path.join(__dirname, 'public', 'pages', 'camera-dashboard.html'));
+    });
+
+    this.app.get('/qa', (req, res) => {
+      res.sendFile(path.join(__dirname, 'public', 'pages', 'qa-interface.html'));
+    });
   }
 
   async start() {

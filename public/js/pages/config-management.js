@@ -10,11 +10,6 @@ class ConfigManagement {
   async init() {
     this.attachEventListeners();
     await this.loadData();
-    
-    // Set header active state
-    if (window.headerComponent) {
-      window.headerComponent.setActiveModule('config');
-    }
   }
 
   attachEventListeners() {

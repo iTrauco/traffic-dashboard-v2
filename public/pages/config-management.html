@@ -90,5 +90,13 @@
 
   <script src="/js/components/Header.js"></script>
   <script src="/js/pages/config-management.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      // Set header active state
+      if (window.headerComponent) {
+        window.headerComponent.setActiveModule('config');
+      }
+    });
+  </script>
 </body>
 </html>

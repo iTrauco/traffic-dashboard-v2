@@ -16,27 +16,38 @@
       <div class="module-grid">
         <div class="module-card">
           <div class="module-title">📋 Config Management</div>
-          <div id="config-status" class="status not-loaded">Not Loaded</div>
-          <p>County-based camera configuration generator</p>
-          <div id="config-module"></div>
+          <div class="status loaded">Available</div>
+          <p>Create and manage county-based camera configurations for HPC towers</p>
+          <div class="module-actions">
+            <a href="/config" class="btn btn-primary">Open Config Manager</a>
+          </div>
         </div>
         
         <div class="module-card">
           <div class="module-title">📊 Camera Dashboard</div>
           <div class="status not-loaded">Coming Soon</div>
-          <p>Recording status monitoring by config</p>
+          <p>Monitor recording status and camera health by configuration</p>
+          <div class="module-actions">
+            <a href="/cameras" class="btn btn-secondary" disabled>Coming Soon</a>
+          </div>
         </div>
         
         <div class="module-card">
           <div class="module-title">🎥 Video Processing</div>
           <div class="status not-loaded">Coming Soon</div>
-          <p>Overlay editor and video downloads</p>
+          <p>Overlay editor, video trimming and download tools</p>
+          <div class="module-actions">
+            <button class="btn btn-secondary" disabled>Coming Soon</button>
+          </div>
         </div>
         
         <div class="module-card">
           <div class="module-title">✅ QA Interface</div>
           <div class="status not-loaded">Coming Soon</div>
-          <p>Camera quality assessment and notes</p>
+          <p>Camera quality assessment, notes and reporting system</p>
+          <div class="module-actions">
+            <a href="/qa" class="btn btn-secondary" disabled>Coming Soon</a>
+          </div>
         </div>
       </div>
     </div>
@@ -44,55 +55,12 @@
 
   <script src="/js/components/Header.js"></script>
   <script>
-    class ModuleLoader {
-      constructor() {
-        this.modules = new Map();
-      }
-
-      async loadModule(name, containerId) {
-        try {
-          // Load the module script dynamically
-          const script = document.createElement('script');
-          script.src = `/js/modules/${name}/${name}.js`;
-          document.head.appendChild(script);
-          
-          // Wait for script to load
-          await new Promise((resolve, reject) => {
-            script.onload = resolve;
-            script.onerror = reject;
-          });
-          
-          const moduleClass = window[name.charAt(0).toUpperCase() + name.slice(1)];
-          if (moduleClass) {
-            const instance = new moduleClass(containerId);
-            this.modules.set(name, instance);
-            this.updateStatus(name, 'loaded');
-            return instance;
-          }
-        } catch (error) {
-          console.warn(`Failed to load module ${name}:`, error);
-          this.updateStatus(name, 'not-loaded');
-        }
-      }
-
-      updateStatus(moduleName, status) {
-        const statusEl = document.getElementById(`${moduleName}-status`);
-        if (statusEl) {
-          statusEl.className = `status ${status}`;
-          statusEl.textContent = status === 'loaded' ? 'Loaded' : 'Not Loaded';
-        }
-      }
-
-      async init() {
-        // Try to load config management module
-        await this.loadModule('config', 'config-module');
-      }
-    }
-
-    // Initialize when DOM loads
+    // Initialize header when DOM loads
     document.addEventListener('DOMContentLoaded', () => {
-      const loader = new ModuleLoader();
-      loader.init();
+      // Header component auto-initializes
+      if (window.headerComponent) {
+        window.headerComponent.setActiveModule('dashboard');
+      }
     });
   </script>
 </body>
