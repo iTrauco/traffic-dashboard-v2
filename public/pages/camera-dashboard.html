@@ -6,6 +6,7 @@
   <title>Camera Dashboard - Traffic QA Dashboard v2</title>
   <link rel="stylesheet" href="/css/base.css">
   <link rel="stylesheet" href="/css/components.css">
+  <link rel="stylesheet" href="/css/pages/camera-dashboard.css">
 </head>
 <body>
   <header id="header"></header>
@@ -13,23 +14,30 @@
   <div class="container">
     <div class="page-header">
       <h1>📊 Camera Dashboard</h1>
-      <p>Recording status monitoring and camera health tracking</p>
+      <p>Live recording status monitoring and recent activity tracking</p>
     </div>
 
-    <div style="text-align: center; padding: 60px; background: white; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
-      <h2 style="color: #6b7280; margin-bottom: 20px;">🚧 Feature Coming Soon</h2>
-      <p style="color: #9ca3af;">This module will show recording status for each camera based on selected configuration.</p>
-      <a href="/" class="btn btn-primary" style="margin-top: 20px;">← Back to Dashboard</a>
+    <div class="dashboard-layout">
+      <!-- System Status Component -->
+      <div id="system-status-panel" class="status-panel"></div>
+
+      <!-- Camera Search Component -->
+      <div id="camera-search-panel" class="search-panel"></div>
+
+      <!-- Camera Recordings Component -->
+      <div id="camera-recordings-panel" class="recordings-panel"></div>
+
+      <!-- Recent Logs Component -->
+      <div id="recent-logs-panel" class="logs-panel"></div>
     </div>
   </div>
 
+  <script src="/js/services/MonitoringService.js"></script>
   <script src="/js/components/Header.js"></script>
-  <script>
-    document.addEventListener('DOMContentLoaded', () => {
-      if (window.headerComponent) {
-        window.headerComponent.setActiveModule('cameras');
-      }
-    });
-  </script>
+  <script src="/js/components/SystemStatusPanel.js"></script>
+  <script src="/js/components/CameraSearchPanel.js"></script>
+  <script src="/js/components/CameraRecordingsPanel.js"></script>
+  <script src="/js/components/RecentLogsPanel.js"></script>
+  <script src="/js/pages/camera-dashboard.js"></script>
 </body>
 </html>

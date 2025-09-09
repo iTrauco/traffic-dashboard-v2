@@ -1,0 +1,385 @@
+/* Camera Dashboard Styles */
+
+.dashboard-layout {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: auto auto auto auto;
+  gap: 20px;
+  align-items: start;
+}
+
+.status-panel,
+.search-panel {
+  grid-column: 1 / -1;
+}
+
+.recordings-panel {
+  grid-column: 1 / -1;
+}
+
+.search-panel,
+.recordings-panel,
+.logs-panel {
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  overflow: hidden;
+}
+
+.section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 30px;
+  border-bottom: 1px solid #e5e5e5;
+  background: #f8f9fa;
+}
+
+.section-header h2 {
+  margin: 0;
+  font-size: 1.3rem;
+  color: #374151;
+}
+
+.auto-refresh {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 12px;
+  color: #6b7280;
+}
+
+/* Status Grid */
+.status-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 20px;
+  padding: 30px;
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.status-card {
+  text-align: center;
+  padding: 20px;
+  border: 2px solid #e5e5e5;
+  border-radius: 8px;
+  transition: all 0.2s;
+}
+
+.status-card:hover {
+  border-color: #2563eb;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+.status-label {
+  font-size: 14px;
+  color: #6b7280;
+  margin-bottom: 8px;
+}
+
+.status-value {
+  font-size: 24px;
+  font-weight: 600;
+  color: #374151;
+}
+
+.status-value.running {
+  color: #059669;
+}
+
+.status-value.stopped {
+  color: #dc2626;
+}
+
+.status-value.configured {
+  color: #059669;
+}
+
+.status-value.not-configured {
+  color: #d97706;
+}
+
+/* Search Controls */
+.search-controls {
+  padding: 20px 30px;
+  display: flex;
+  gap: 15px;
+  align-items: center;
+}
+
+.search-input {
+  flex: 1;
+  padding: 12px 16px;
+  border: 2px solid #e5e5e5;
+  border-radius: 6px;
+  font-size: 14px;
+  transition: border-color 0.2s;
+}
+
+.search-input:focus {
+  outline: none;
+  border-color: #2563eb;
+}
+
+.panel-info {
+  font-size: 14px;
+  color: #6b7280;
+}
+
+/* Camera Grid */
+.cameras-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+  gap: 20px;
+  padding: 30px;
+  max-height: 600px;
+  overflow-y: auto;
+}
+
+.camera-card {
+  border: 2px solid #e5e5e5;
+  border-radius: 8px;
+  padding: 20px;
+  transition: all 0.2s;
+}
+
+.camera-card:hover {
+  border-color: #2563eb;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+.camera-card.recording {
+  border-color: #059669;
+  background: #f0fdf4;
+}
+
+.camera-header {
+  display: flex;
+  justify-content: between;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+.camera-id {
+  font-weight: 600;
+  color: #2563eb;
+  font-size: 18px;
+}
+
+.camera-status {
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.camera-status.recording {
+  background: #dcfce7;
+  color: #166534;
+}
+
+.camera-status.idle {
+  background: #f3f4f6;
+  color: #6b7280;
+}
+
+.recordings-list {
+  margin-top: 10px;
+}
+
+.recordings-header {
+  font-size: 14px;
+  font-weight: 500;
+  color: #374151;
+  margin-bottom: 8px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.recording-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 6px 0;
+  border-bottom: 1px solid #f3f4f6;
+  font-size: 12px;
+}
+
+.recording-item:last-child {
+  border-bottom: none;
+}
+
+.recording-filename {
+  color: #374151;
+  font-family: 'Courier New', monospace;
+}
+
+.recording-meta {
+  color: #6b7280;
+}
+
+.camera-actions {
+  margin-top: 15px;
+  display: flex;
+  gap: 10px;
+}
+
+.camera-actions button {
+  padding: 6px 12px;
+  font-size: 12px;
+}
+
+/* Samples List */
+.samples-list {
+  max-height: 400px;
+  overflow-y: auto;
+}
+
+.sample-item {
+  display: flex;
+  justify-content: between;
+  align-items: center;
+  padding: 15px 30px;
+  border-bottom: 1px solid #e5e5e5;
+  transition: background-color 0.2s;
+}
+
+.sample-item:hover {
+  background: #f8f9fa;
+}
+
+.sample-item:last-child {
+  border-bottom: none;
+}
+
+.sample-info {
+  flex: 1;
+}
+
+.sample-camera {
+  font-weight: 600;
+  color: #2563eb;
+  margin-bottom: 2px;
+}
+
+.sample-details {
+  font-size: 12px;
+  color: #6b7280;
+}
+
+.sample-meta {
+  text-align: right;
+  font-size: 12px;
+  color: #6b7280;
+}
+
+.sample-size {
+  font-weight: 500;
+  color: #374151;
+  margin-bottom: 2px;
+}
+
+/* Prefix Grid */
+.prefix-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 15px;
+  padding: 30px;
+}
+
+.prefix-item {
+  padding: 20px;
+  border: 1px solid #e5e5e5;
+  border-radius: 6px;
+  text-align: center;
+  transition: all 0.2s;
+}
+
+.prefix-item:hover {
+  border-color: #2563eb;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.prefix-name {
+  font-weight: 600;
+  color: #2563eb;
+  margin-bottom: 8px;
+  font-size: 16px;
+}
+
+.prefix-stats {
+  display: flex;
+  justify-content: space-between;
+  font-size: 14px;
+  color: #6b7280;
+}
+
+.prefix-count {
+  font-weight: 500;
+  color: #374151;
+}
+
+.prefix-size {
+  color: #6b7280;
+}
+
+/* Logs List */
+.logs-list {
+  max-height: 300px;
+  overflow-y: auto;
+  padding: 20px 30px;
+}
+
+.log-item {
+  padding: 8px 0;
+  border-bottom: 1px solid #f3f4f6;
+  font-family: 'Courier New', monospace;
+  font-size: 13px;
+  line-height: 1.4;
+}
+
+.log-item:last-child {
+  border-bottom: none;
+}
+
+.log-item.success {
+  color: #059669;
+}
+
+.log-item.error {
+  color: #dc2626;
+}
+
+.log-item.warning {
+  color: #d97706;
+}
+
+.log-item.info {
+  color: #6b7280;
+}
+
+/* Loading States */
+.loading {
+  text-align: center;
+  padding: 40px;
+  color: #6b7280;
+  font-style: italic;
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+  .dashboard-layout {
+    grid-template-columns: 1fr;
+  }
+  
+  .status-grid {
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  }
+  
+  .prefix-grid {
+    grid-template-columns: 1fr;
+  }
+}

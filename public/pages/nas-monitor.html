@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NAS Transfer Monitor - Traffic QA Dashboard v2</title>
+  <link rel="stylesheet" href="/css/base.css">
+  <link rel="stylesheet" href="/css/components.css">
+  <link rel="stylesheet" href="/css/pages/nas-monitor.css">
+</head>
+<body>
+  <header id="header"></header>
+  
+  <div class="container">
+    <div class="page-header">
+      <h1>💾 NAS Transfer Monitor</h1>
+      <p>Monitor NAS transfer service, storage capacity, and transfer queue</p>
+    </div>
+
+    <div class="nas-monitor-layout">
+      <!-- Service Status -->
+      <div id="nas-service-status" class="monitor-panel">
+        <div class="section-header">
+          <h2>🔄 Transfer Service</h2>
+          <button id="refresh-service" class="btn btn-small">🔄 Refresh</button>
+        </div>
+        <div class="loading">Loading service status...</div>
+      </div>
+
+      <!-- Storage Status -->
+      <div id="nas-storage-status" class="monitor-panel">
+        <div class="section-header">
+          <h2>🗄️ Storage Status</h2>
+        </div>
+        <div class="loading">Loading storage status...</div>
+      </div>
+
+      <!-- Transfer Queue -->
+      <div id="transfer-queue" class="monitor-panel">
+        <div class="section-header">
+          <h2>📋 Transfer Queue</h2>
+        </div>
+        <div class="loading">Loading transfer queue...</div>
+      </div>
+
+      <!-- Active Transfers -->
+      <div id="active-transfers" class="monitor-panel">
+        <div class="section-header">
+          <h2>⚡ Active Transfers</h2>
+        </div>
+        <div class="loading">Loading active transfers...</div>
+      </div>
+
+      <!-- Network Performance -->
+      <div id="network-performance" class="monitor-panel">
+        <div class="section-header">
+          <h2>🌐 Network Performance</h2>
+        </div>
+        <div class="loading">Loading network stats...</div>
+      </div>
+
+      <!-- Recent Activity -->
+      <div id="recent-activity" class="monitor-panel">
+        <div class="section-header">
+          <h2>📈 Recent Activity</h2>
+        </div>
+        <div class="loading">Loading recent activity...</div>
+      </div>
+    </div>
+  </div>
+
+  <script src="/js/services/MonitoringService.js"></script>
+  <script src="/js/components/Header.js"></script>
+  <script src="/js/pages/nas-monitor.js"></script>
+</body>
+</html>

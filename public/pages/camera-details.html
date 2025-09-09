@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Camera Details - Traffic QA Dashboard v2</title>
+  <link rel="stylesheet" href="/css/base.css">
+  <link rel="stylesheet" href="/css/components.css">
+  <link rel="stylesheet" href="/css/pages/camera-details.css">
+</head>
+<body>
+  <header id="header"></header>
+  
+  <div class="container">
+    <div class="camera-details-layout">
+      <!-- Camera Header -->
+      <div class="camera-header-section">
+        <div class="camera-info">
+          <h1 id="camera-title">Camera Loading...</h1>
+          <div class="camera-meta">
+            <span id="camera-status" class="status-badge">Status Loading...</span>
+            <span id="camera-location" class="location-info">Location Loading...</span>
+          </div>
+        </div>
+        <div class="camera-actions">
+          <button id="refresh-camera" class="btn btn-primary">🔄 Refresh</button>
+          <button id="qa-mode-toggle" class="btn btn-secondary">📋 QA Mode</button>
+        </div>
+      </div>
+
+      <!-- Main Content Grid -->
+      <div class="camera-content-grid">
+        <!-- Live Preview Section -->
+        <div class="live-preview-section">
+          <div class="section-header">
+            <h2>📡 Live Preview</h2>
+            <div class="preview-controls">
+              <button id="preview-refresh" class="btn btn-small">🔄 Refresh</button>
+              <select id="preview-quality" class="quality-select">
+                <option value="high">High Quality</option>
+                <option value="medium" selected>Medium Quality</option>
+                <option value="low">Low Quality</option>
+              </select>
+            </div>
+          </div>
+          <div id="live-preview-container" class="preview-container">
+            <div class="preview-placeholder">
+              <div class="preview-icon">📹</div>
+              <p>Loading live preview...</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Recordings Browser Section -->
+        <div class="recordings-browser-section">
+          <div class="section-header">
+            <h2>🎬 Recordings Browser</h2>
+            <div class="browser-controls">
+              <input type="date" id="recording-date" class="date-picker">
+              <button id="load-recordings" class="btn btn-small">Load Recordings</button>
+            </div>
+          </div>
+          <div id="recordings-list" class="recordings-grid">
+            <div class="loading-message">Select a date to load recordings</div>
+          </div>
+        </div>
+
+        <!-- Samples Preview Section -->
+        <div class="samples-section">
+          <div class="section-header">
+            <h2>🔬 Sample Previews</h2>
+            <div class="samples-controls">
+              <button id="load-samples" class="btn btn-small">Load Latest Samples</button>
+            </div>
+          </div>
+          <div id="samples-grid" class="samples-grid">
+            <div class="loading-message">Click "Load Latest Samples" to view</div>
+          </div>
+        </div>
+
+        <!-- Overlay Editor Section -->
+        <div class="overlay-editor-section">
+          <div class="section-header">
+            <h2>🎨 Overlay Editor</h2>
+            <div class="editor-controls">
+              <button id="load-recording-for-edit" class="btn btn-small" disabled>Load Recording</button>
+              <button id="apply-overlay" class="btn btn-primary" disabled>Apply Overlay</button>
+              <button id="download-processed" class="btn btn-success" disabled>Download</button>
+            </div>
+          </div>
+          <div id="overlay-editor-container" class="editor-container">
+            <div class="editor-placeholder">
+              <div class="editor-icon">🎨</div>
+              <p>Select a recording to start overlay editing</p>
+              <div class="editor-instructions">
+                <ol>
+                  <li>Select a recording from the browser above</li>
+                  <li>Configure timestamp and branding options</li>
+                  <li>Preview changes in real-time</li>
+                  <li>Apply overlay and download processed video</li>
+                </ol>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- QA Interface Section -->
+        <div class="qa-interface-section" style="display: none;">
+          <div class="section-header">
+            <h2>📋 Quality Assessment</h2>
+            <div class="qa-controls">
+              <button id="save-qa" class="btn btn-primary" disabled>Save QA Report</button>
+              <button id="export-qa" class="btn btn-secondary" disabled>Export QA</button>
+            </div>
+          </div>
+          <div id="qa-form-container" class="qa-form">
+            <div class="qa-form-loading">
+              <p>Select a recording to perform quality assessment</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="/js/services/MonitoringService.js"></script>
+  <script src="/js/components/Header.js"></script>
+  <script src="/js/pages/camera-details.js"></script>
+</body>
+</html>

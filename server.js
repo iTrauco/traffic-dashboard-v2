@@ -44,6 +44,14 @@ class Server {
     this.app.get('/qa', (req, res) => {
       res.sendFile(path.join(__dirname, 'public', 'pages', 'qa-interface.html'));
     });
+
+    this.app.get('/nas-monitor', (req, res) => {
+      res.sendFile(path.join(__dirname, 'public', 'pages', 'nas-monitor.html'));
+    });
+
+    this.app.get('/sample-extractor', (req, res) => {
+      res.sendFile(path.join(__dirname, 'public', 'pages', 'sample-extractor.html'));
+    });
   }
 
   async start() {
@@ -55,6 +63,13 @@ class Server {
       this.registerRoute('/api/config', configModule.router);
     } catch (err) {
       console.warn('⚠️  Config module not found, skipping');
+    }
+
+    try {
+      const monitoringModule = require('./modules/monitoring');
+      this.registerRoute('/api/monitoring', monitoringModule.router);
+    } catch (err) {
+      console.warn('⚠️  Monitoring module not found, skipping');
     }
 
     this.setupHealthCheck();

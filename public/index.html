@@ -25,10 +25,28 @@
         
         <div class="module-card">
           <div class="module-title">📊 Camera Dashboard</div>
-          <div class="status not-loaded">Coming Soon</div>
+          <div class="status loaded">Available</div>
           <p>Monitor recording status and camera health by configuration</p>
           <div class="module-actions">
-            <a href="/cameras" class="btn btn-secondary" disabled>Coming Soon</a>
+            <a href="/cameras" class="btn btn-primary">Open Camera Dashboard</a>
+          </div>
+        </div>
+        
+        <div class="module-card">
+          <div class="module-title">💾 NAS Transfer Monitor</div>
+          <div class="status loaded">Available</div>
+          <p>Monitor NAS storage, transfer queue, and network performance</p>
+          <div class="module-actions">
+            <a href="/nas-monitor" class="btn btn-primary">Open NAS Monitor</a>
+          </div>
+        </div>
+        
+        <div class="module-card">
+          <div class="module-title">🔬 Sample Extractor</div>
+          <div class="status loaded">Available</div>
+          <p>Monitor sample processing, extraction status, and recent activity</p>
+          <div class="module-actions">
+            <a href="/sample-extractor" class="btn btn-primary">Open Sample Monitor</a>
           </div>
         </div>
         
@@ -53,6 +71,7 @@
     </div>
   </div>
 
+  <script src="/js/services/MonitoringService.js"></script>
   <script src="/js/components/Header.js"></script>
   <script>
     // Initialize header when DOM loads

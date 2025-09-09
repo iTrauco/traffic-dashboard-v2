@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sample Extractor Monitor - Traffic QA Dashboard v2</title>
+  <link rel="stylesheet" href="/css/base.css">
+  <link rel="stylesheet" href="/css/components.css">
+  <link rel="stylesheet" href="/css/pages/sample-extractor.css">
+</head>
+<body>
+  <header id="header"></header>
+  
+  <div class="container">
+    <div class="page-header">
+      <h1>🔬 Sample Extractor Monitor</h1>
+      <p>Monitor sample processing, extraction status, and recent sample activity</p>
+    </div>
+
+    <div class="sample-monitor-layout">
+      <!-- Service Status -->
+      <div id="extractor-status" class="monitor-panel">
+        <div class="section-header">
+          <h2>⚙️ Extractor Service</h2>
+          <button id="refresh-extractor" class="btn btn-small">🔄 Refresh</button>
+        </div>
+        <div class="loading">Loading extractor status...</div>
+      </div>
+
+      <!-- Processing Statistics -->
+      <div id="processing-stats" class="monitor-panel">
+        <div class="section-header">
+          <h2>📊 Processing Statistics</h2>
+        </div>
+        <div class="loading">Loading processing stats...</div>
+      </div>
+
+      <!-- Recent Samples -->
+      <div id="recent-samples" class="monitor-panel">
+        <div class="section-header">
+          <h2>🎬 Recent Samples</h2>
+        </div>
+        <div class="loading">Loading recent samples...</div>
+      </div>
+
+      <!-- Samples by Camera -->
+      <div id="samples-by-camera" class="monitor-panel">
+        <div class="section-header">
+          <h2>📹 Samples by Camera Prefix</h2>
+        </div>
+        <div class="loading">Loading camera breakdown...</div>
+      </div>
+
+      <!-- Processing Queue -->
+      <div id="processing-queue" class="monitor-panel">
+        <div class="section-header">
+          <h2>⏳ Processing Queue</h2>
+        </div>
+        <div class="loading">Loading processing queue...</div>
+      </div>
+
+      <!-- Log Activity -->
+      <div id="log-activity" class="monitor-panel">
+        <div class="section-header">
+          <h2>📝 Log Activity</h2>
+        </div>
+        <div class="loading">Loading log activity...</div>
+      </div>
+    </div>
+  </div>
+
+  <script src="/js/services/MonitoringService.js"></script>
+  <script src="/js/components/Header.js"></script>
+  <script src="/js/pages/sample-extractor.js"></script>
+</body>
+</html>
